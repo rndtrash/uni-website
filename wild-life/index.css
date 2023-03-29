@@ -16,8 +16,8 @@ body {
     color: #fff;
 }
 
-div {
-    padding: 10px;
+body > * {
+    padding: 0 10vw;
 }
 
 .block-black {
@@ -40,13 +40,50 @@ div {
     color: #111;
 }
 
-section {
-    padding: 20px;
+header {
+    font-style: italic;
+    font-weight: bold;
+}
+
+section#best-wildlife-photos {
+    padding: 10vw 0;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+section#best-wildlife-photos > div.float-right {
+    width: 75%;
+    margin-left: auto;
+    margin-top: -60px;
+}
+
+div.africa9-container {
+    z-index: 0;
+
+    padding-left: 10vmin;
+    padding-top: 10vmin;
+
+    margin: 0;
+}
+
+div.africa9-container > img {
+    width: 50vmin;
+    height: 50vmin;
+
+    object-fit: cover;
+
+    box-shadow: #000 0 0 10px;
+
+    padding: 0;
+    margin: 0;
 }
 
 h1 {
     font-family:'Times New Roman', Times, serif;
     font-style: italic;
+    font-size: 3rem;
 
     margin-bottom: 0;
 }
