@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Батарейка</title>
+
+    <style>
+        main {
+            display: flex;
+
+            flex-flow: row nowrap;
+
+            justify-content: center;
+        }
+
+        section {
+            display: flex;
+
+            flex-flow: row nowrap;
+
+            padding: 10px;
+        }
+
+        .battery {
+            width: 200px;
+            height: 80px;
+
+            border: 10px solid black;
+        }
+
+        .battery.low {
+            background: linear-gradient(90deg, red 33%, transparent 33%);
+        }
+
+        .battery.half {
+            background: linear-gradient(90deg, yellow 50%, transparent 50%);
+        }
+
+        .battery.full {
+            background: green;
+        }
+
+        .polus {
+            margin: auto 0;
+            height: 40px;
+            width: 10px;
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section>
+            <div class="battery low"></div>
+            <div class="polus"></div>
+        </section>
+        <section>
+            <div class="battery half"></div>
+            <div class="polus"></div>
+        </section>
+        <section>
+            <div class="battery full"></div>
+            <div class="polus"></div>
+        </section>
+    </main>
+</body>
+
+</html>

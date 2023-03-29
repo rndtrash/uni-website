@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <script>
+        function clock() {
+            const date = new Date();
+            dt.innerText = date.toLocaleString();
+        }
+    </script>
+
+    <style>
+        details#mouse-events.hover {
+            background: greenyellow;
+        }
+
+        details#mouse-events.hover summary::marker {
+            content: '🐹😈💨🔥';
+        }
+    </style>
+</head>
+
+<body>
+    <details>
+        <summary>Задание 1: Дата и время</summary>
+        <span id="datetime"></span>
+    </details>
+
+    <details id="mouse-events">
+        <summary>Задание 2: События мыши</summary>
+        <img src="img/leha.png">
+    </details>
+
+    <script>
+        var dt = document.getElementById("datetime");
+        {
+            clock();
+            setInterval(clock, 1000);
+        }
+
+        {
+            const me = document.getElementById("mouse-events");
+            const img = me.getElementsByTagName("img")[0];
+            const summary = me.getElementsByTagName("summary")[0];
+
+            img.onmouseover = (e) => {
+                img.setAttribute('src', 'img/snowball.jpg');
+                me.classList.add('hover');
+                summary.innerText = 'Задание 2: Лёха и мыши';
+            };
+            img.onmouseleave = (e) => {
+                img.setAttribute('src', 'img/leha.png');
+                me.classList.remove('hover');
+                summary.innerText = 'Задание 2: События мыши';
+            };
+        }
+    </script>
+</body>
+
+</html>
