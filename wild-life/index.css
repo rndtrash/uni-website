@@ -46,22 +46,20 @@ header {
 }
 
 section#best-wildlife-photos {
-    padding: 10vw 0;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
 
-    display: flex;
+    /*display: flex;
     flex-flow: column nowrap;
-    align-items: center;
+    align-items: center;*/
 }
 
 section#best-wildlife-photos > div.float-right {
+    position: relative;
     width: 75%;
-    margin-left: auto;
-    margin-top: -60px;
 }
 
 div.africa9-container {
-    z-index: 0;
-
     padding-left: 10vmin;
     padding-top: 10vmin;
 
@@ -92,4 +90,9 @@ a {
     text-decoration: none;
     font-style: italic;
     color: #fc0;
+}
+
+header, footer {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
 }

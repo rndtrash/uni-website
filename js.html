@@ -10,37 +10,36 @@
             dt.innerText = date.toLocaleString();
         }
     </script>
-
-    <style>
-        details#mouse-events.hover {
-            background: greenyellow;
-        }
-
-        details#mouse-events.hover summary::marker {
-            content: '🐹😈💨🔥';
-        }
-    </style>
 </head>
 
 <body>
     <details>
         <summary>Задание 1: Дата и время</summary>
         <span id="datetime"></span>
+        <script>
+            var dt = document.getElementById("datetime");
+
+            clock();
+            setInterval(clock, 1000);
+        </script>
     </details>
 
     <details id="mouse-events">
-        <summary>Задание 2: События мыши</summary>
+        <summary>Задание 1.5: События мыши</summary>
+
+        <style>
+            details#mouse-events.hover {
+                background: greenyellow;
+            }
+    
+            details#mouse-events.hover summary::marker {
+                content: 'текст';
+            }
+        </style>
+
         <img src="img/leha.png">
-    </details>
 
-    <script>
-        var dt = document.getElementById("datetime");
-        {
-            clock();
-            setInterval(clock, 1000);
-        }
-
-        {
+        <script>
             const me = document.getElementById("mouse-events");
             const img = me.getElementsByTagName("img")[0];
             const summary = me.getElementsByTagName("summary")[0];
@@ -55,8 +54,206 @@
                 me.classList.remove('hover');
                 summary.innerText = 'Задание 2: События мыши';
             };
-        }
-    </script>
+        </script>
+    </details>
+
+    <details>
+        <summary>Задание 2: Календарь</summary>
+
+        <div>
+            Задание:
+            <ol>
+                <li>Добавить к календарю название месяца.</li>
+                <li>Выделить субботы и воскресенья</li>
+                <li>Подписать дни недели</li>
+            </ol>
+        </div>
+
+        <style>
+            #month {
+                font-size: 24px;
+            }
+
+            #calendar > tr > td {
+                text-align: center;
+            }
+
+            #calendar > tr > td:nth-child(6),
+            #calendar > tr > td:nth-child(7) {
+                color: red;
+            }
+        </style>
+
+        <div class="calendar-wrapper">
+            <div id="month">Апрель 2023</div>
+            <table id="calendar">
+                <tr>
+                    <td>ПН</td>
+                    <td>ВТ</td>
+                    <td>СР</td>
+                    <td>ЧТ</td>
+                    <td>ПТ</td>
+                    <td>СБ</td>
+                    <td>ВС</td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            const calendarTable = document.getElementById("calendar");
+
+            const firstDayOfWeek = 5;
+            const daysInMonth = 30;
+            //const weeksInMonth = Math.ceil(30 / 7);
+
+            const firstRow = document.createElement("tr");
+            for (let i = 0; i < 7; i++) {
+                const newCell = document.createElement("td");
+
+                if (i >= firstDayOfWeek)
+                    newCell.innerText = i - firstDayOfWeek + 1;
+
+                firstRow.appendChild(newCell);
+            }
+            calendarTable.appendChild(firstRow);
+
+            let day = (6 - firstDayOfWeek) + 1; // день с нуля
+            for (let i = 0; day < 30; i++) {
+                const newRow = document.createElement("tr");
+                for (let i = 0; i < 7 && day < 30; i++) {
+                    const newCell = document.createElement("td");
+                    newCell.innerText = day + 1;
+                    day++;
+                    newRow.appendChild(newCell);
+                }
+                calendarTable.appendChild(newRow);
+            }
+        </script>
+    </details>
+
+    <details>
+        <summary>Задание 3: Нахождение элементов в DOM&dash;дереве</summary>
+
+        <div>Найти все элементы DOM</div>
+
+        <ul id="elements"></ul>
+
+        <script>
+            const domElementsList = document.getElementById("elements");
+
+            const allElementsCollection = document.querySelectorAll("*");
+            allElementsCollection.forEach((e) => {
+                const newLi = document.createElement("li");
+                newLi.innerText = `Тег: ${e.tagName}, Текст: ${e.innerText}`;
+                domElementsList.appendChild(newLi);
+            });
+            alert(allElementsCollection.length);
+        </script>
+    </details>
+
+    <details>
+        <summary>Задание 4: Изменение объекта</summary>
+
+        <div>Через указанный промежуток времени 50мс выполнить анимацию выбранного блока &mdash; увеличение на 50% с разворотом по часовой стрелке на 180&deg;</div>
+
+        <img src="img/leha.png" id="snowballster">
+        <style>
+            #snowballster {
+                transition: transform linear 0.05s;
+            }
+        </style>
+
+        <script>
+            const snowballster = document.getElementById("snowballster");
+            let snowballInterval;
+            let is180 = false;
+            snowballster.onmouseover = () => {
+                snowballInterval = setInterval(() => {
+                    snowballster.style.transform = `scale(${is180 ? 1.5 : 1}) rotate(${is180 ? 180 : 360}deg)`;
+                    is180 = !is180;
+                }, 50);
+            };
+            snowballster.onmouseleave = () => {
+                clearInterval(snowballInterval);
+            };
+        </script>
+    </details>
+
+    <details>
+        <summary>Задание 5: Напишите скрипт для создания элемента согласно варианту</summary>
+        
+        <div>Абзацы в &lt;div&gt;, удаление снизу от текущего</div>
+
+        <button id="z5-create">Создать абзац</button>
+        <button id="z5-delete">Удалить абзац</button>
+        <div id="z5">
+        </div>
+
+        <style>
+            #z5 .active {
+                background: yellow;
+                color: black;
+            }
+        </style>
+
+        <script>
+            {
+                const z5 = document.getElementById("z5");
+                let active = -1;
+
+                function addElement() {
+                    const p = prompt("Сколько добавить абзацев?");
+                    if (p === undefined)
+                        return;
+                    
+                    const n = parseInt(p);
+                    if (isNaN(n) || n < 0)
+                        return;
+                    
+                    for (let i = 0; i < n; i++) {
+                        const inp = prompt("Введите содержимое абзаца:");
+                        if (inp === undefined)
+                            break;
+
+                        const el = document.createElement("p");
+                        el.innerText = inp;
+                        z5.appendChild(el);
+                    }
+                    active = z5.childElementCount - 1;
+
+                    const currentActive = z5.querySelector(".active");
+                    if (currentActive !== null)
+                        currentActive.classList.remove("active");
+                    
+                    z5.children[active].classList.add("active");
+                }
+
+                function deleteElement() {
+                    if (active == -1) {
+                        alert("Нечего удалять.");
+                        return;
+                    }
+
+                    const p = prompt("Выберите номер элемента снизу от текущего, который вы хотите удалить");
+                    if (p === undefined)
+                        return;
+                    
+                    let n = parseInt(p);
+                    if (isNaN(n) || active + n >= z5.childElementCount || active + n < 0)
+                        return;
+                    
+                    z5.children[active + n].remove();
+                    if (active + n <= active) {
+                        active--;
+                        z5.children[active].classList.add("active");
+                    }
+                }
+
+                document.getElementById("z5-create").onclick = addElement;
+
+                document.getElementById("z5-delete").onclick = deleteElement;
+            }
+        </script>
+    </details>
 </body>
 
 </html>
