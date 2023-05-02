@@ -146,7 +146,7 @@
                 newLi.innerText = `Тег: ${e.tagName}, Текст: ${e.innerText}`;
                 domElementsList.appendChild(newLi);
             });
-            alert(allElementsCollection.length);
+            //alert(allElementsCollection.length);
         </script>
     </details>
 
@@ -184,21 +184,33 @@
         <div>Абзацы в &lt;div&gt;, удаление снизу от текущего</div>
 
         <button id="z5-create">Создать абзац</button>
-        <button id="z5-delete">Удалить абзац</button>
         <div id="z5">
         </div>
 
         <style>
-            #z5 .active {
+            #z5 p:hover {
                 background: yellow;
                 color: black;
+
+                cursor: pointer;
             }
         </style>
 
         <script>
             {
                 const z5 = document.getElementById("z5");
-                let active = -1;
+
+                function deleteElement(el) {
+                    console.log(el);
+                    return;
+                    /////////
+
+                    z5.children[active + n].remove();
+                    if (active + n <= active) {
+                        active--;
+                        z5.children[active].classList.add("active");
+                    }
+                }
 
                 function addElement() {
                     const p = prompt("Сколько добавить абзацев?");
@@ -216,43 +228,18 @@
 
                         const el = document.createElement("p");
                         el.innerText = inp;
+                        el.onclick = deleteElement;
                         z5.appendChild(el);
-                    }
-                    active = z5.childElementCount - 1;
-
-                    const currentActive = z5.querySelector(".active");
-                    if (currentActive !== null)
-                        currentActive.classList.remove("active");
-                    
-                    z5.children[active].classList.add("active");
-                }
-
-                function deleteElement() {
-                    if (active == -1) {
-                        alert("Нечего удалять.");
-                        return;
-                    }
-
-                    const p = prompt("Выберите номер элемента снизу от текущего, который вы хотите удалить");
-                    if (p === undefined)
-                        return;
-                    
-                    let n = parseInt(p);
-                    if (isNaN(n) || active + n >= z5.childElementCount || active + n < 0)
-                        return;
-                    
-                    z5.children[active + n].remove();
-                    if (active + n <= active) {
-                        active--;
-                        z5.children[active].classList.add("active");
                     }
                 }
 
                 document.getElementById("z5-create").onclick = addElement;
-
-                document.getElementById("z5-delete").onclick = deleteElement;
             }
         </script>
+    </details>
+
+    <details>
+        <summary>Задание 6: </summary>
     </details>
 </body>
 
