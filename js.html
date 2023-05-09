@@ -200,17 +200,16 @@
             {
                 const z5 = document.getElementById("z5");
 
-                function deleteElement(el) {
-                    console.log(el);
-                    return;
-                    /////////
+                function deleteElement(e) {
+                    const el = e.target;
+                    if (el === null || el.tagName != "P" || el.nextSibling === null)
+                        return;
 
-                    z5.children[active + n].remove();
-                    if (active + n <= active) {
-                        active--;
-                        z5.children[active].classList.add("active");
+                    if (confirm("Вы уверены?")) {
+                        el.nextSibling.remove();
                     }
                 }
+                z5.onclick = deleteElement;
 
                 function addElement() {
                     const p = prompt("Сколько добавить абзацев?");
@@ -228,7 +227,6 @@
 
                         const el = document.createElement("p");
                         el.innerText = inp;
-                        el.onclick = deleteElement;
                         z5.appendChild(el);
                     }
                 }
@@ -238,8 +236,130 @@
         </script>
     </details>
 
-    <details>
-        <summary>Задание 6: </summary>
+    <details id="z6">
+        <summary>Задание 6: Организовать обработку события</summary>
+
+        <div>Клик в ячейке таблица (4x4) вызывает окно prompt. Текст из него помещается в ячейку.</div>
+
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <style>
+            #z6 td {
+                min-width: 80px;
+                height: 24px;
+            }
+
+            #z6 td:hover {
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            #z6 table, #z6 tr, #z6 td {
+                border: 1px solid black;
+            }
+        </style>
+
+        <script>
+            {
+                const z6 = document.getElementById("z6");
+                z6.onclick = (e) => {
+                    const el = e.target;
+                    if (el === null || el.tagName != "TD")
+                        return;
+
+                    const p = prompt("Введите новый текст ячейки:");
+                    if (p) {
+                        el.innerText = p;
+                    }
+                };
+            }
+        </script>
+    </details>
+
+    <details id="z7">
+        <summary>Задание 7: Создайте меню, которое раскрывается/сворачивается при клике</summary>
+
+        <h1 id="z7-spoiler">Здесь сладости (нажми на меня!)</h1>
+        <div id="z7-sweets" style="display: none">
+            <div class="sweet">Пироженое</div>
+            <div class="sweet">Мёд</div>
+            <div class="sweet">Конфета</div>
+        </div>
+
+        <style>
+            #z7-spoiler:before {
+                content: '➡️';
+            }
+
+            #z7-spoiler.active:before {
+                content: '⬇️';
+            }
+
+            #z7-sweets .sweet {
+                opacity: 1;
+                cursor: pointer;
+                transition: opacity 1s ease-out;
+            }
+        </style>
+
+        <script>
+            {
+                const z7spoiler = document.getElementById("z7-spoiler");
+                z7spoiler.onclick = () => {
+                    if (z7spoiler.classList.contains("active")) {
+                        z7spoiler.classList.remove("active");
+                        z7spoiler.nextElementSibling.style.display = "none";
+                    }
+                    else {
+                        z7spoiler.classList.add("active");
+                        z7spoiler.nextElementSibling.style.display = "block";
+                    }
+                };
+
+                const z7sweets = document.getElementById("z7-sweets");
+
+                const hasSweets = () => {
+                    if (z7sweets.childElementCount == 0) {
+                        z7sweets.append("А-а-а всё, всё выжрали!");
+                    }
+                };
+
+                z7sweets.onclick = (e) => {
+                    if (!e.target.classList.contains("sweet") || e.target.style.opacity == "0")
+                        return;
+                    
+                    e.target.style.opacity = 0;
+                    setTimeout(() => {
+                        e.target.remove();
+                        hasSweets();
+                    }, 1000);
+                };
+            }
+        </script>
     </details>
 </body>
 
