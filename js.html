@@ -361,6 +361,281 @@
             }
         </script>
     </details>
+
+    <details>
+        <summary>
+            Задание 8: Фильтр alpha
+        </summary>
+
+        <div>
+            Используя функцию setTimeout и статический фильтр alpha, создайте картинку, которая будет плавно проявляться на экране (как если бы использовался фильтр blendtrans).
+            Необходимо, чтобы при наведении указателя мыши картинка плавно становилась прозрачнее и проявлялся текст, расположенный за картинкой. Как только указатель мыши выйдет за пределы
+            картинки, она должна снова плавно стать непрозрачной.
+        </div>
+
+        <span id="z8-text">
+            <span>БУ</span>
+            <img id="z8-leha" class="overlay" src="img/leha.png">
+        </span>
+
+        <style>
+            #z8-text {
+                position: relative;
+            }
+
+            #z8-text span {
+                position: absolute;
+                left: 0;
+                right: 0;
+
+                line-height: 256px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            #z8-text img {
+                position: relative;
+                z-index: 100;
+
+                opacity: 1;
+            }
+        </style>
+
+        <script>
+            {
+                const leha = document.getElementById("z8-leha");
+                const deltaTime = 1.0 / 60.0;
+                let opacity = 1;
+                let timeout = NaN;
+
+                function resetTimeout() {
+                    if (!isNaN(timeout)) {
+                        clearTimeout(timeout);
+                        timeout = NaN;
+                    }
+                }
+
+                function updateOpacity() {
+                    leha.style.opacity = opacity;
+                }
+
+                leha.addEventListener("mouseenter", () => {
+                    resetTimeout();
+
+                    const callback = () => {
+                        opacity -= deltaTime * 0.5;
+                        if (opacity < 0)
+                            opacity = 0;
+
+                        updateOpacity();
+
+                        if (opacity > 0)
+                            timeout = setTimeout(callback, deltaTime);
+                    };
+                    timeout = setTimeout(callback, deltaTime);
+                });
+
+                leha.addEventListener("mouseleave", () => {
+                    resetTimeout();
+
+                    const callback = () => {
+                        opacity += deltaTime * 0.5;
+                        if (opacity > 1)
+                            opacity = 1;
+
+                        updateOpacity();
+
+                        if (opacity < 1)
+                            timeout = setTimeout(callback, deltaTime);
+                    };
+                    timeout = setTimeout(callback, deltaTime);
+                });
+            }
+        </script>
+    </details>
+
+    <details>
+        <summary>Задание 9: Регулярные выражения</summary>
+
+        <form id="z9">
+            <fieldset>
+                <legend>Анкета в секретный клуб</legend>
+
+                <p>
+                    <label for="login">
+                        Введите ваш логин (от 2 до 16 символов, только латинские буквы и цифры):
+                        <input id="z9-login" required type="text" name="login" maxlength="16">
+                    </label>
+                </p>
+
+                <p>
+                    <label for="email">
+                        Введите вашу электронную почту:
+                        <input id="z9-email" required type="email" name="email">
+                    </label>
+                </p>
+
+                <p>
+                    <label for="password">
+                        Введите ваш пароль:
+                        <input id="z9-password" required type="password" name="password" maxlength="16">
+                    </label>
+                </p>
+
+                <p>
+                    <label for="password">
+                        Пароль должен иметь:
+                        <ul>
+                            <li>Не менее 4 и не более 16 символов</li>
+                            <li>Хотя бы одну букву "ы"</li>
+                            <li>Любое количество знаков $, кроме 5 подряд</li>
+                            <li>Ровно три цифры 8</li>
+                            <li>Слово "кОтЁНОК"</li>
+                        </ul>
+                    </label>
+                </p>
+
+                <p>
+                    <label for="password-confirm">
+                        Введите ваш пароль ещё раз:
+                        <input id="z9-password-confirm" required type="password" name="password" maxlength="16">
+                    </label>
+                </p>
+
+                <p>
+                    <label for="password-confirm2">
+                        И ещё раз:
+                        <input id="z9-password-confirm2" required type="password" name="password" maxlength="16">
+                    </label>
+                </p>
+
+                <p>
+                    <label for="about-me">
+                        Расскажите о себе:
+                        <textarea id="z9-about-me" required name="about-me"></textarea>
+                    </label>
+                </p>
+
+                <p>
+                    <label for="club-info">
+                        Что вы знаете о нашем клубе:
+                        <input id="z9-club-info" required type="text" name="club-info" placeholder="Ничего">
+                    </label>
+                </p>
+
+                <p>
+                    <label for="lies">
+                        Не обманываете?
+                        <select id="z9-lies" name="lies">
+                            <option>Нет, обманываю</option>
+                            <option>Да, обманываю</option>
+                            <option>Обманываю</option>
+                            <option>Не не обманываю</option>
+                        </select>
+                    </label>
+                </p>
+
+                <button id="z9-join">Вступить</button>
+            </fieldset>
+        </form>
+
+        <style>
+            #z9 input.error {
+                border-color: red;
+            }
+
+            #z9 label, #z9 ul, #z9 button {
+                transition: filter 1s ease-in-out;
+
+                filter: blur(10px);
+            }
+
+            #z9 label:hover, #z9 ul:hover, #z9 button:hover {
+                filter: blur(0px);
+            }
+        </style>
+
+        <script>
+            {
+                const joinButton = document.getElementById("z9-join");
+
+                const allInputs = document.querySelectorAll("#z9 label input");
+                console.log(allInputs);
+                function checkInputs(ev) {
+                    for (let i = 0; i < allInputs.length; i++) {
+                        const input = allInputs[i];
+                        input.onblur();
+                        if (input.classList.contains("error")) {
+                            if (ev)
+                                ev.preventDefault();
+                            return;
+                        }
+                    }
+                }
+
+                function checkLength(el, min, max, successCallback) {
+                    if (el.value.length < min || el.value.length > max) {
+                        el.classList.add("error");
+                        joinButton.disabled = true;
+                    } else {
+                        el.classList.remove("error");
+                        if (successCallback)
+                            successCallback();
+                    }
+                }
+
+                function checkRegex(el, regex, successCallback) {
+                    if (regex.test(el.value)) {
+                        el.classList.remove("error");
+                        if (successCallback)
+                            successCallback();
+                    } else {
+                        el.classList.add("error");
+                    }
+                }
+
+                function checkEquals(el, el2, successCallback) {
+                    if (el.value == el2.value) {
+                        el.classList.remove("error");
+                        if (successCallback)
+                            successCallback();
+                    } else {
+                        el.classList.add("error");
+                    }
+                }
+                
+                const loginInput = document.getElementById("z9-login");
+                loginInput.onblur = () => checkRegex(loginInput, /^[A-Za-z0-9]{2,16}$/);
+
+                const passwordInput = document.getElementById("z9-password");
+                passwordInput.onblur = () => checkLength(passwordInput, 4, 16, () => {
+                    console.log("нужной длины");
+                    checkRegex(passwordInput, /[Ыы]/, () => {
+                        console.log("есть буква ы");
+                        checkRegex(passwordInput, /\${0,4}\${2,}?/, () => {
+                            console.log("есть доллары");
+                            checkRegex(passwordInput, /8{3}/, () => {
+                                console.log("ровно три восьмёрки");
+                                checkRegex(passwordInput, /кОтЁНОК/, () => {
+                                    console.log("кОтЁНОК");
+                                });
+                            });
+                        });
+                    });
+                });
+
+                const passwordConfirmInput = document.getElementById("z9-password-confirm");
+                passwordConfirmInput.onblur = () => checkEquals(passwordConfirmInput, passwordInput);
+
+                const passwordConfirm2Input = document.getElementById("z9-password-confirm2");
+                passwordConfirm2Input.onblur = () => checkEquals(passwordConfirm2Input, passwordInput);
+
+                joinButton.addEventListener("click", checkInputs);
+
+                checkInputs();
+            }
+        </script>
+    </details>
 </body>
 
 </html>
