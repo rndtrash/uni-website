@@ -1,0 +1,15 @@
+{ "columns":25,
+ "image":"battle-city.png",
+ "imageheight":256,
+ "imagewidth":400,
+ "margin":0,
+ "name":"Battle City",
+ "spacing":0,
+ "tilecount":400,
+ "tiledversion":"1.10.1",
+ "tileheight":16,
+ "tilewidth":16,
+ "transparentcolor":"#000001",
+ "type":"tileset",
+ "version":"1.10"
+}

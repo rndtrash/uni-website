@@ -1,0 +1,22 @@
+{
+  "name": "tanks",
+  "version": "1.0.0",
+  "description": "Танчики",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "tsc -w",
+    "build": "tsc -b"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rndtrash/uni-website.git"
+  },
+  "author": "rndtrash",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "phaser": "^3.60.0"
+  }
+}

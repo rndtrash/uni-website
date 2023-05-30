@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>PHP</title>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+
+<body>
+    <details>
+        <summary>Задание jQuery+AJAX 1: Идеальный вес</summary>
+
+        <form action="a3.php" method="POST" id="ja1-form">
+            <div>
+                Пол:
+                <select name="sex">
+                    <option value="man">Мужской</option>
+                    <option value="woman">Женский</option>
+                    <option>Геликоптер</option>
+                </select>
+            </div>
+
+            <div>
+                Рост (в сантиметрах):
+                <input id="ja1-height-range" name="height" type="range" min="130" max="240">
+                <span id="ja1-height">130 см</span>
+            </div>
+
+            <button>Получить идеальный вес</button>
+        </form>
+        <div id="ja1-weight"></div>
+
+        <script>
+            {
+                $(document).ready(() => {
+                    const heightRange = $("#ja1-height-range");
+                    const heightValue = $("#ja1-height");
+
+                    heightRange.on("input", () => {
+                        heightValue.text(`${heightRange.val()} см`);
+                    });
+                    heightValue.text(`${heightRange.val()} см`);
+
+                    const form = $("form#ja1-form");
+                    form.on("submit", (e) => {
+                        e.preventDefault();
+
+                        $.ajax("/a3.php", {
+                            type: "POST",
+                            url: "a3.php",
+                            data: {
+                                sex: $("#ja1-form select").val(),
+                                height: $('#ja1-form input[name="height"]').val()
+                            }
+                        }).done((data) => {
+                            $("#ja1-weight").text(data);
+                        });
+                    });
+                });
+            }
+        </script>
+    </details>
+</body>
+
+</html>

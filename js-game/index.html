@@ -1,0 +1,40 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Танчики</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript" src="scene.js"></script>
+<script type="text/javascript" src="tank.js"></script>
+<script type="text/javascript" src="bullet.js"></script>
+<script type="text/javascript">
+
+var config = {
+    type: Phaser.WEBGL,
+    width: 1280,
+    height: 720,
+    backgroundColor: '#bfcc00',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 0 },
+            debug: false
+        }
+    },
+    scene: TankScene
+};
+
+var game = new Phaser.Game(config);
+
+</script>
+
+</body>
+</html>

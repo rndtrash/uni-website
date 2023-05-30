@@ -1,0 +1,40 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "ffa.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "battle-city.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
+        "ffa.tmx": {
+            "scale": 2,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 231.25,
+                "y": 167
+            }
+        },
+        "ffa.tmx#Battle City": {
+            "scaleInDock": 1
+        }
+    },
+    "last.exportedFilePath": "/home/ivan/projects/uni-website/js-tanks/assets",
+    "map.lastUsedExportFilter": "JSON map-файлы (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "ffa.tmx"
+    ],
+    "project": "battle-city.tiled-project",
+    "recentFiles": [
+        "ffa.tmx",
+        "battle-city.tsx"
+    ]
+}

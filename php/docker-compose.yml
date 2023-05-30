@@ -1,0 +1,22 @@
+version: "3"
+services:
+    php:
+        image: php:fpm
+        # монтируем директорию с проектами
+        volumes:
+            - ./www:/var/www
+    nginx:
+        # используем последний стабильный образ nginx
+        image: nginx:latest
+        # маршрутизируем порты
+        ports:
+            - "80:80"
+            - "443:443"
+        # монтируем директории, слева директории на основной машине, справа - куда они монтируются в контейнере
+        volumes:
+            - ./hosts:/etc/nginx/conf.d
+            - ./www:/var/www
+            - ./logs/nginx:/var/log/nginx
+        # nginx должен общаться с php контейнером
+        depends_on:
+            - php

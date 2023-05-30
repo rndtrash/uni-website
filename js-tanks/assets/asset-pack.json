@@ -1,0 +1,28 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/battle-city.png",
+                "type": "image",
+                "key": "battle-city-png"
+            },
+            {
+                "url": "assets/wall.png",
+                "type": "image",
+                "key": "wall"
+            },
+            {
+                "url": "assets/ffa.json",
+                "type": "tilemapTiledJSON",
+                "key": "ffa"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}
