@@ -176,42 +176,36 @@
     <details>
         <summary>Задание PHP вариант 10: Количество дней между двумя датами</summary>
 
-        <form action="mail.php" method="POST" id="ja2-form">
+        <form action="mail.php" method="POST" id="php10-form">
             <div>
-                ФИО:
-                <input type="text" name="fio" placeholder="Иванов Иван Иванович">
+                Дата начала промежутка:
+                <input type="date" name="date1">
             </div>
 
             <div>
-                EMail:
-                <input type="email" name="email">
-            </div>
-
-            <div>
-                Номер телефона:
-                <input type="tel" name="phone">
+                Дата конца:
+                <input type="date" name="date2">
             </div>
 
             <button>Отправить</button>
         </form>
-        <div id="ja2-answer"></div>
+        <div id="php10-answer"></div>
 
         <script>
             {
                 $(document).ready(() => {
-                    const form = $("form#ja2-form");
+                    const form = $("form#php10-form");
                     form.on("submit", (e) => {
                         e.preventDefault();
 
-                        $.ajax("/mail.php", {
+                        $.ajax("/php10.php", {
                             type: "POST",
                             data: {
-                                fio: $('#ja2-form input[name="fio"]').val(),
-                                email: $('#ja2-form input[name="email"]').val(),
-                                phone: $('#ja2-form input[name="phone"]').val()
+                                date1: $('#php10-form input[name="date1"]').val(),
+                                date2: $('#php10-form input[name="date2"]').val()
                             }
                         }).done((data) => {
-                            $("#ja2-answer").text(data);
+                            $("#php10-answer").text(data);
                         });
                     });
                 });

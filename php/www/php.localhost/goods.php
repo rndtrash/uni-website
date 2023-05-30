@@ -36,3 +36,5 @@ if (!array_key_exists($_POST['art'], $art)) {
 }
 
 echo json_encode($art[$_POST['art']]);
+
+?>
