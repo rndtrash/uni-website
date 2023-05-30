@@ -107,6 +107,117 @@
             }
         </script>
     </details>
+
+    <details>
+        <summary>Задание jQuery+AJAX 3: Артикул</summary>
+
+        <form action="goods.php" method="POST" id="ja3-form">
+            <div>
+                Артикул:
+                <input type="text" name="art" placeholder="1">
+            </div>
+
+            <button>Отправить</button>
+        </form>
+        <div id="ja3-answer"></div>
+
+        <script>
+            {
+                const jsonTemplate = [
+                    {
+                        key: "name",
+                        string: "Имя товара"
+                    },
+                    {
+                        key: "weight",
+                        string: "Вес товара"
+                    },
+                    {
+                        key: "cost",
+                        string: "Стоимость товара"
+                    },
+                    {
+                        key: "img",
+                        string: "Ссылка на картинку"
+                    }
+                ];
+
+                $(document).ready(() => {
+                    const form = $("form#ja3-form");
+                    form.on("submit", (e) => {
+                        e.preventDefault();
+
+                        $.ajax("/goods.php", {
+                            type: "POST",
+                            data: {
+                                art: $('#ja3-form input[name="art"]').val()
+                            },
+                            dataType: "json"
+                        }).done((data) => {
+                            if (data['error'] !== undefined) {
+                                $("#ja3-answer").text(data['error']);
+                                return;
+                            }
+
+                            let s = "";
+
+                            jsonTemplate.forEach(k => {
+                                s += `<div>${k['string']}: ${data[k['key']]}</div>`;
+                            });
+
+                            $("#ja3-answer").html(s);
+                        });
+                    });
+                });
+            }
+        </script>
+    </details>
+
+    <details>
+        <summary>Задание PHP вариант 10: Количество дней между двумя датами</summary>
+
+        <form action="mail.php" method="POST" id="ja2-form">
+            <div>
+                ФИО:
+                <input type="text" name="fio" placeholder="Иванов Иван Иванович">
+            </div>
+
+            <div>
+                EMail:
+                <input type="email" name="email">
+            </div>
+
+            <div>
+                Номер телефона:
+                <input type="tel" name="phone">
+            </div>
+
+            <button>Отправить</button>
+        </form>
+        <div id="ja2-answer"></div>
+
+        <script>
+            {
+                $(document).ready(() => {
+                    const form = $("form#ja2-form");
+                    form.on("submit", (e) => {
+                        e.preventDefault();
+
+                        $.ajax("/mail.php", {
+                            type: "POST",
+                            data: {
+                                fio: $('#ja2-form input[name="fio"]').val(),
+                                email: $('#ja2-form input[name="email"]').val(),
+                                phone: $('#ja2-form input[name="phone"]').val()
+                            }
+                        }).done((data) => {
+                            $("#ja2-answer").text(data);
+                        });
+                    });
+                });
+            }
+        </script>
+    </details>
 </body>
 
 </html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>PHP</title>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        div.menu {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+
+            height: 100%;
+
+            display: flex;
+            flex-flow: row nowrap;
+        }
+
+        div.menu.right {
+            left: auto;
+            right: 0;
+        }
+
+        div.sidebar {
+            width: 25vw;
+            margin-left: -25vw;
+
+            transition: margin-left 0.25s ease-in-out;
+        }
+
+        div.sidebar.right {
+            margin-left: 0;
+            margin-right: -25vw;
+
+            transition: margin-right 0.25s ease-in-out;
+        }
+
+        div.sidebar.active {
+            margin-left: 0;
+        }
+
+        div.sidebar.active.right {
+            margin-right: 0;
+        }
+
+        a.btn-slide {
+            background: red;
+            color: white;
+
+            writing-mode: vertical-rl;
+
+            width: 64px;
+            height: 128px;
+            line-height: 64px;
+            text-align: center;
+
+            margin: auto 0;
+        }
+
+        a.btn-slide.right {
+            transform: rotate(-180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu">
+        <div class="sidebar left">
+            <div>Пункт 1</div>
+            <div>Пункт 2</div>
+            <div>Пункт 3</div>
+            <hr>
+            <div>Пункт 1</div>
+            <div>Пункт 2</div>
+            <div>Пункт 3</div>
+        </div>
+        <a class="btn-slide left" href="#">МЕНЮ</a>
+    </div>
+
+    <div class="menu right">
+        <a class="btn-slide right" href="#">МЕНЮ</a>
+        <div class="sidebar right">
+            <div>Пункт 1</div>
+            <div>Пункт 2</div>
+            <div>Пункт 3</div>
+            <hr>
+            <div>Пункт 1</div>
+            <div>Пункт 2</div>
+            <div>Пункт 3</div>
+        </div>
+    </div>
+
+    <script>
+        $("a.btn-slide.left").on("click", () => {
+            $("div.sidebar.left").toggleClass("active");
+        });
+
+        $("a.btn-slide.right").on("click", () => {
+            $("div.sidebar.right").toggleClass("active");
+        });
+    </script>
+</body>
+
+</html>
